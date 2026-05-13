@@ -3,15 +3,15 @@ const Transaction = require("../models/Transaction");
 exports.createTransaction = async (req, res) => {
   try {
 
-    const { type, amount, category, source, date } = req.body;
+     console.log("REQ USER:", req.user);
+    const { type, amount, category, date } = req.body;
 
     const transaction = new Transaction({
       type,
       amount,
       category,
-      source,
       date,
-      user: req.user.id
+      user: req.user
     });
 
     await transaction.save();
@@ -29,12 +29,12 @@ exports.getTransactions = async (req, res) => {
   try {
 
     const data = await Transaction.find({
-      user: req.user.id
+      user: req.user
     });
 
     res.json(data);
 
-  } catch {
+  } catch (err) {
     res.status(500).json({
       error: "Server error"
     });
@@ -52,7 +52,7 @@ exports.deleteTransaction = async (req, res) => {
       message: "Deleted"
     });
 
-  } catch {
+  } catch (err) {
     res.status(500).json({
       error: "Server error"
     });

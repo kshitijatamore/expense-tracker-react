@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
       process.env.JWT_SECRET
     );
 
-    req.user = decoded;
+    req.user = decoded.id;
     next();
 
   } catch {
