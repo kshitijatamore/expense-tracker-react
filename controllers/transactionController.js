@@ -3,12 +3,13 @@ const Transaction = require("../models/Transaction");
 exports.createTransaction = async (req, res) => {
   try {
 
-    const { type, amount, category, date } = req.body;
+    const { type, amount, category, source, date } = req.body;
 
     const transaction = new Transaction({
       type,
       amount,
       category,
+      source,
       date,
       user: req.user.id
     });
